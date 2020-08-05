@@ -1,0 +1,55 @@
+version: '3'
+services:
+  #producer提供者
+  producer:
+    image: kylinzhang/producer:latest
+    container_name: sc-producer
+    restart: always
+    networks:
+      - sc-net
+    ports:
+      - 9001:9001
+    env_file: .env
+    environment:
+      TZ: Asia/Shanghai
+  #producer-jpa提供者
+  producer-jpa:
+    image: kylinzhang/producer-jpa:latest
+    container_name: sc-producer-jpa
+    restart: always
+    networks:
+      - sc-net
+    ports:
+      - 9002:9002
+    env_file: .env
+    environment:
+      TZ: Asia/Shanghai
+  #consumer-feign消费者
+  consumer-feign:
+    image: kylinzhang/consumer-feign:latest
+    container_name: sc-consumer-feign
+    restart: always
+    networks:
+      - sc-net
+    ports:
+      - 8041:8041
+    env_file: .env
+    environment:
+      TZ: Asia/Shanghai
+  #consumer-ribbon消费者
+  consumer-ribbon:
+    image: kylinzhang/consumer-ribbon:latest
+    container_name: sc-consumer-ribbon
+    restart: always
+    networks:
+      - sc-net
+    ports:
+      - 8020:8020
+    env_file: .env
+    environment:
+      TZ: Asia/Shanghai
+
+
+networks:
+  sc-net:
+    external: false

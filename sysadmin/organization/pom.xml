@@ -34,9 +34,11 @@
                 <version>1.2.0</version>
                 <configuration>
                     <!-- 注意imageName一定要是符合正则[a-z0-9-_.]的，否则构建不会成功 -->
-                    <imageName>cike/${project.artifactId}</imageName>
+                    <imageName>kylinzhang/${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                     <rm>true</rm>
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://192.168.184.140:2375</dockerHost>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

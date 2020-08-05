@@ -17,7 +17,7 @@ services:
     container_name: sc-kong
     env_file: .env
     volumes:
-      - ../data/kong:/usr/local/kong
+      - /home/zhangqiling/data/kong:/usr/local/kong
     networks:
       - sc-net
     ports:
@@ -27,3 +27,6 @@ services:
       - 8444:8444/tcp
     depends_on:
       - postgres
+networks:
+  sc-net:
+    external: false

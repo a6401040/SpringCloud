@@ -2,9 +2,9 @@ version: '3'
 services:
   #消息中心
   bus-server:
-    image: cike/bus-server:latest
+    image: kylinzhang/bus-server:latest
     container_name: sc-bus
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -12,3 +12,7 @@ services:
     env_file: .env
     environment:
       TZ: Asia/Shanghai
+
+networks:
+  sc-net:
+    external: false

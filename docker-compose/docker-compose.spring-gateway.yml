@@ -2,9 +2,9 @@ version: '3'
 services:
   #网关服务
   gateway-web:
-    image: cike/gateway-web:latest
+    image: kylinzhang/gateway-web:latest
     container_name: sc-gateway-web
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -15,9 +15,9 @@ services:
 
   #网关管理服务
   gateway-admin:
-    image: cike/gateway-admin:latest
+    image: kylinzhang/gateway-admin:latest
     container_name: sc-gateway-admin
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -25,3 +25,7 @@ services:
     env_file: .env
     environment:
       TZ: Asia/Shanghai
+
+networks:
+  sc-net:
+    external: false

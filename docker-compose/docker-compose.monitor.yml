@@ -2,9 +2,9 @@ version: '3'
 services:
   #监控管理台服务
   monitor-admin:
-    image: cike/admin:latest
+    image: kylinzhang/admin:latest
     container_name: sc-monitor-admin
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -16,9 +16,13 @@ services:
   sentinel-dashboard:
     image: cike/sentinel-dashboard-docker:latest
     container_name: sc-sentinel-dashboard
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
       - 8021:8021
     env_file: .env
+
+networks:
+  sc-net:
+    external: false

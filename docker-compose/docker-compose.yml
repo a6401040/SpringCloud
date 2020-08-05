@@ -5,7 +5,7 @@ services:
     container_name: sc-redis
     restart: always
     volumes:
-      - ../data/redis:/data
+      - /home/zhangqiling/data/redis:/data
     environment:
       - REDIS_PASSWORD=123456
     networks:
@@ -19,7 +19,7 @@ services:
     container_name: sc-rabbitmq
     restart: always
     volumes:
-      - ../data/rabbitmq:/var/lib/rabbitmq/mnesia
+      - /home/zhangqiling/data/rabbitmq:/var/lib/rabbitmq/mnesia
     networks:
       - sc-net
     ports:
@@ -36,7 +36,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ../data/mysql:/var/lib/mysql
+      - /home/zhangqiling/data/mysql:/var/lib/mysql
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: root123

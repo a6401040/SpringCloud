@@ -10,13 +10,13 @@ services:
       - ./moss/mysql:/sql
       - ./init-db.sh:/init-db.sh
     environment:
-      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_ROOT_PASSWORD: abcd1234
 
   #Moss管理中心
   moss:
-    image: w304807481/moss-web:latest
+    image: kylinzhang/moss-web:latest
     container_name: moss
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -24,5 +24,7 @@ services:
     env_file: .env
     environment:
       TZ: Asia/Shanghai
-    depends_on:
-      - moss-db-init
+
+networks:
+  sc-net:
+    external: false

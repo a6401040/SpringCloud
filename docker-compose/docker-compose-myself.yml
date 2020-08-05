@@ -1,9 +1,36 @@
 version: '3'
 services:
+  redis: 
+    image: redis:alpine
+    container_name: sc-redis
+    restart: always
+    volumes:
+      - /home/zhangqiling/data/redis:/data
+    environment:
+      - REDIS_PASSWORD=123456
+    networks:
+      - sc-net
+    ports:
+      - 6379:6379
+    env_file: .env
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: sc-rabbitmq
+    restart: always
+    volumes:
+      - /home/zhangqiling/data/rabbitmq:/var/lib/rabbitmq/mnesia
+    networks:
+      - sc-net
+    ports:
+      - 5672:5672
+      - 15672:15672
+    env_file: .env
+
   zipkin-server:
     image: openzipkin/zipkin
     container_name: sc-zipkin-server
-    #restart: always
+    restart: always
     volumes:
       - /home/zhangqiling/data/zipkin-server/logs:/var/logs
     networks:
@@ -23,7 +50,7 @@ services:
   elasticsearch:
     image: elasticsearch:5.6-alpine
     container_name: sc-elasticsearch
-    #restart: always
+    restart: always
     environment:
       - cluster.name=elasticsearch
       - bootstrap.memory_lock=true
@@ -53,7 +80,7 @@ services:
       - elasticsearch
     links:
       - elasticsearch
-    #restart: always
+    restart: always
     ports:
       - 11800:11800
       - 12800:12800
@@ -69,16 +96,16 @@ services:
       - skywalking-oap
     links:
       - skywalking-oap
-    #restart: always
+    restart: always
     ports:
       - 8080:8080
     environment:
       collector.ribbon.listOfServers: skywalking-oap:12800
 
   kibana:
-    image: kibana:5.6.14
+    image: kibana:5.6.16
     container_name: sc-kibana
-    #restart: always
+    restart: always
     volumes:
       - /home/zhangqiling/data/kibana/logs:/var/logs/kibana
       - /home/zhangqiling/devops/kibana.yml:/etc/kibana/kibana.yml
@@ -92,13 +119,40 @@ services:
   grafana:
     image: grafana/grafana
     container_name: sc-grafana
-    #restart: always
+    restart: always
     volumes:
       - /home/zhangqiling/data/grafana/logs:/var/logs/grafana
     networks:
       - sc-net
     ports:
       - 3000:3000
+
+  nacos:
+    image: nacos/nacos-server:1.1.3
+    container_name: sc-nacos-standalone
+    networks:
+      - sc-net
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    volumes:
+      - /home/zhangqiling/data/nacos-server/logs/:/home/nacos/logs
+    ports:
+      - "8848:8848"
+
+  prometheus:
+    container_name: sc-prometheus
+    image: prom/prometheus:latest
+    networks:
+      - sc-net
+    volumes:
+      - /home/zhangqiling/nacos/prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - nacos
+    restart: on-failure
+
 
 networks:
   sc-net:

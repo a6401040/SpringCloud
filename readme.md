@@ -233,3 +233,7 @@ EMail：zhoutaoo@foxmail.com
 ## Stargazers over time
  
 [![Stargazers over time](https://starchart.cc/zhoutaoo/SpringCloud.svg)](https://starchart.cc/zhoutaoo/SpringCloud)
+
+构建打包docker到本地docker仓库：
+
+mvn docker:build

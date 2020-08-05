@@ -2,9 +2,9 @@ version: '3'
 services:
   #授权服务
   authorization-server:
-    image: cike/authorization-server:latest
+    image: kylinzhang/authorization-server:latest
     container_name: sc-authorization-server
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -17,9 +17,9 @@ services:
 
   #认证服务
   authentication-server:
-    image: cike/authentication-server:latest
+    image: kylinzhang/authentication-server:latest
     container_name: sc-authentication-server
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -32,9 +32,9 @@ services:
 
   #组织服务
   organization:
-    image: cike/organization:latest
+    image: kylinzhang/organization:latest
     container_name: sc-organization
-    restart: always
+    #restart: always
     networks:
       - sc-net
     ports:
@@ -42,3 +42,7 @@ services:
     env_file: .env
     environment:
       TZ: Asia/Shanghai
+
+networks:
+  sc-net:
+    external: false

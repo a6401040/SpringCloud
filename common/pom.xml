@@ -11,6 +11,15 @@
     <name>common</name>
     <description>Demo Common project for Spring Boot</description>
 
+    <!--指定阿里云库-->
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
     <modules>
         <module>core</module>
         <module>web</module>
